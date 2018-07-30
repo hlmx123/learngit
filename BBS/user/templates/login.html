@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block container %}
+
+{% if error %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{ error }}
+</div>
+{% endif %}
+
+<form class="form-horizontal" method="POST" action="/user/login/">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="col-sm-2 control-label">昵称</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="nickname">
+        </div>
+    </div>
+     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.10.2/jquery.js"></script>
+    <script>
+        $(function () {
+            $('img').click(function () {
+            console.log('刷新验证码')
+                $(this).attr('src','/user/get_verify_code/'+Math.random());
+            })
+
+        })
+    </script>
+    <style>
+        label{
+            width: 80px;
+            text-align: right;
+            display: inline-block;
+
+        }
+    </style>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="password" name="password">
+        </div>
+    </div>
+     <div class="form-group">
+         <label class="col-sm-2 control-label">验证码</label></div>
+        <div class="col-sm-5">
+            <input type="text"name="varifycode"><img height="54" src="{% url 'verify_code' %}" alt="验证码">
+             </div>
+    </div>
+
+        <br>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button type="submit" class="btn btn-default">提交</button>
+        </div>
+    </div>
+</form>
+
+<hr>
+
+<div>
+    第三方登录：<a href="{{auth_url}}">微博登录</a>
+</div>
+{% endblock %}

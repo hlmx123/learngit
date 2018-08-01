@@ -22,6 +22,7 @@ def register(request):
             # 设置用户登录状态
             request.session['uid'] = user.id
             request.session['nickname'] = user.nickname
+
             return redirect('/user/info/')
         else:
             return render(request, 'register.html', {'error': form.errors})
@@ -70,6 +71,7 @@ def login(request):
                 if verify_code.lower() == desk_code.lower():
                     request.session['uid'] = user.id
                     request.session['nickname'] = user.nickname
+
                     return redirect('/user/info/')
                 else:
                        error = '验证码错误'
